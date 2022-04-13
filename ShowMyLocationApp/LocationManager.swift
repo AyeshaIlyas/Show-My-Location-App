@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class LocationManager: NSObject, ObservableObject {
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     // cl is for current location
     private let locationManager = CLLocationManager()
     @Published var location: CLLocation? = nil 
@@ -22,9 +22,7 @@ class LocationManager: NSObject, ObservableObject {
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
     }
-}
-
-extension LocationManager: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
             return
